@@ -1,0 +1,118 @@
+<head>
+    <base href="http://127.0.0.1:5000/">
+
+    <link href="\static\css\styles.css" rel="stylesheet" >
+
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Invoice{% endblock %}
+{% block body %}
+<div class="container" style="margin-top: 10px;">
+    <table style="width: 100%; border-color: white;">
+        <tr style="border-bottom: 1px solid rgba(51, 51, 51, .5);">
+            <td style="height: 30px; padding-left: 1%; padding-bottom: 1%; ">
+                <img src="\static\img\monogram-smol.png" >
+            </td>
+            <td style="text-align: right; padding-right: 1%;">
+                <h3 style="margin: 0;">
+                    Invoice
+                </h3>
+            </td>
+        </tr>
+    </table>
+    <div style="margin: 20px 0px; padding: 0 10px;">
+        <h3>Client</h3>
+        <h5>{{session['invoice_data'][0]['client']}} - {{session['invoice_data'][0]['email']}}</h5>
+    </div>
+    <div>
+        <table style="width: 100%; border-color: white;">
+            <tr style="border-bottom: 1px solid rgba(51, 51, 51, .5);">
+                <td style="width: 50%; border-right: 1px solid rgba(51, 51, 51, .5); padding: 10px;">
+                    <h6 style="margin-bottom: 10px;">Order ID</h6>
+                    {{session['invoice_data'][0]['order_id']}}
+                </td>
+                <td style="padding: 10px;">
+                    <h6 style="margin-bottom: 10px;">Date</h6>
+                    {{date}}
+                </td>
+            </tr>
+            <tr style="">
+                <td valign="top" style="width: 50%; border-right: 1px solid rgba(51, 51, 51, .5); padding: 10px;">
+                    <h6 style="margin-bottom: 10px;">Billing Details</h6>
+                    <table style="border-color: white;">
+                        <tr>
+                            <td>
+                                <div style="border-color: white;">
+                                    {{session['invoice_data'][0]['address']}}
+                                    <br>
+                                    {{session['invoice_data'][0]['city']}}, {{session['invoice_data'][0]['state']}}
+                                    {{session['invoice_data'][0]['zip']}}
+                                    <br>
+                                    US
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td valign="top" style="padding: 10px;">
+                    <h6 style="margin-bottom: 10px;">Products</h6>
+                    <table style="width: 100%; border-color: white;">
+                        {% for i in session['shopping_data']: %}
+                            <tr>
+                                <td valign="top" style="width: 10%;">
+                                    <div style="text-align: center;">
+                                        <img src="\static\products\{{i['img']}}"
+                                             style="height: 35px;">
+                                    </div>
+                                </td>
+                                <td style="width: 75%;">
+                                    <h6 style="margin: 0;">{{i['name']}} - {{i['quantity']}}</h6>
+                                    <p style="">
+                                        {{i['description']}}
+                                    </p>
+                                </td>
+                                <td style="width: 15%; text-align: right; ">
+                                    <h6>Price: ${{i['total']}}</h6>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            <tr >
+                <td colspan="2" style="text-align: right; padding: 10px;">
+                    <h6 style="margin-bottom: 10px;">Total: ${{total_to_pay}} Usd</h6>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="display: flex; height: 40px; margin: 20px 0px; justify-content: flex-end;">
+        {% if buttons: %}
+            <div style="width: 100%; text-align: right">
+                <table style="width: 100%; text-align: right">
+                    <tr>
+                        <td style="text-align: left">
+                            <form id="home" action="{{url_for('user.success')}}" method="post">
+                            </form>
+                            <button type="submit" form="home" class="checkout-super-smol">Back Home</button>
+                        </td>
+                        <td style="text-align: right">
+                            <a href="{{url_for('user.invoice')}}">
+                                <button  style="" type="button" class="checkout-super-smol">
+                                    Get PDF
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

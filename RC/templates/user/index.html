@@ -1,0 +1,226 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<! -- navbar -->
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <div style="display: flex; flex-direction: row; justify-content: space-between; width: 50px;">
+          <a class="nav-link active" href="{{url_for('user.about')}}" style="margin-left: 16px;">
+              <i class="fa-solid fa-circle-info"></i>
+          </a>
+      </div>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto">
+                <a class="nav-link active" aria-current="page" href="{{url_for('user.user')}}" style="margin-right: 16px;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+<! -- presentation card and paragraph -->
+<div class="container">
+    <div class="card" >
+        <img src="static/products/cover.jpg" style="width: 60%;">
+    </div>
+
+    <div style="margin-top: 40px;">
+        <h4>
+            RojoCuerpo
+        </h4>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sollicitudin elit eu
+            dignissim vulputate. In sit amet elementum odio. Quisque molestie elementum posuere.
+            Nunc tempus, quam a aliquet sollicitudin, nisi purus egestas arcu, eget sodales lacus
+            neque ut risus. Nulla finibus venenatis imperdiet. Vestibulum ante ipsum primis in
+            faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse tincidunt mi mi, ac
+            aliquet justo sagittis in. Phasellus ac sollicitudin lacus.
+            Sed dignissim metus velit, ac rhoncus velit imperdiet ac. Nam hendrerit blandit sagittis.
+            Donec eu commodo tortor.
+        </p>
+    </div>
+</div>
+
+<! -- products -->
+<div class="container">
+    <div class="flex-container">
+        {% for i in products: %}
+            <div class="flex-box flex-index" style="">
+                <table class="product-table cart-table" style="">
+                    <tr>
+                         <td>
+                             <h2 class="article-name" >{{ i.item_name }}</h2>
+                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{{url_for('user.view_product', name=i.item_name)}}">
+                                <img src="/static/products/{{i.item_img_name}}" class="product-img-on-table">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="bottom-row" style="">
+                        <td style="text-align: center;">
+                            <table style="text-align: center; width: 100%">
+                                <tr>
+                                    <td>
+                                        <table style="text-align: center; width: 100%">
+                                            <tr>
+                                                <td style="text-align: left; padding-left: 5px;">
+                                                    <h6>Price:</h6>
+                                                </td>
+                                                <td style="text-align: right; padding-right: 10px;">
+                                                    <h6 class="item-price">${{ i.price }}</h6>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-left: 5px;">
+                                                    <h6 style="text-align: left;" class="item-price">Quantity:</h6>
+                                                </td>
+                                                <td style="text-align: right; padding-right: 10px;">
+                                                    <input form="{{ i.item_name }}" class="item-quantity" name="quantity" type="number" value="1"
+                                                    min="1" max="5">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="100%">
+                                                    <form id="{{ i.item_name }}" action="{{url_for('user.home')}}"
+                                                          method="post">
+                                                        <input type="hidden" name="sku" value="{{ i.sku }}">
+                                                        <input type="hidden" name="name" value="{{ i.item_name }}">
+                                                        <input type="hidden" name="img" value="{{i.item_img_name}}">
+                                                        <input type="hidden" name="price" value="{{ i.price }}">
+                                                        <input type="hidden" name="description" value="{{ i.description }}">
+                                                        <input type="hidden" name="price_id"
+                                                               value="{{ i.stripe_price_id }}">
+                                                    </form>
+                                                    <button form="{{ i.item_name }}" type="submit"
+                                                            class="save_changes">Add to Cart
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<! -- cart on the bottom of the page, only if cart has items -->
+{% if cart: %}
+    {% if session['shopping_data']: %}
+        <div class="container">
+
+            <div class="flex-container cart-item" style="margin-top: 40px;">
+
+                <div class="flex-box cart-row" style="width: 100%;">
+                    <h3 style="margin-bottom: 5px; width: 100%;">
+                        Cart
+                    </h3>
+                    <br>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages: %}
+                            {% for i in messages: %}
+                                <p class="okay" style="margin-bottom: 0; width: 100%;"> {{ i }} </p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                <div class="flex-box" style="width: 100%; text-align: right;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th style="text-align: left;">
+                                <h5>
+                                    Item
+                                </h5>
+                            </th>
+                            <th style="text-align: right;">
+                                <h5>
+                                    Quantity
+                                </h5>
+                            </th>
+                            <th style="text-align: right; width: 20%;">
+                                <h5>
+                                    Price
+                                </h5>
+                            </th>
+                        </tr>
+                        {% for i in session['shopping_data']: %}
+                            <tr style="border-bottom: 1px solid rgba(51, 51, 51, .5);">
+                                <td style="text-align: left; padding: .5rem 0 1rem 0; ">
+                                    <h6 style="margin-bottom: .5rem">{{i['name']}}</h6>
+                                    <img class="thumbnail" src="/static/products/{{i['img']}}">
+                                </td>
+                                <td style="padding-bottom: 1rem; text-align: right;">
+                                    {{ i['quantity'] }}
+                                </td>
+                                <td style="padding-bottom: 1rem; text-align: right;">
+                                    {{ i['total'] }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td style="text-align: right; padding-top: 1rem; padding-right: 5px;
+                                   border-right: 1px solid rgba(51, 51, 51, .5);" colspan="2">
+                                <b>Total Products: {{quantity}}</b>
+                            </td >
+                            <td style="text-align: right; padding-top: 1rem; padding-right: 5px;">
+                                <b>Total to pay: ${{to_pay}} USD</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right; padding-right: 5px;
+                                   border-right: 1px solid rgba(51, 51, 51, .5);">
+                                <a href="{{url_for('user.cart')}}">
+                                    <button type="button" class="edit-cart">Edit Cart</button>
+                                </a>
+                            </td>
+                            <td colspan="1" style="text-align: right; padding-right: 5px;">
+                                <a href="{{url_for('user.billing_details')}}">
+                                    <button type="button" class="checkout-smol">Checkout</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

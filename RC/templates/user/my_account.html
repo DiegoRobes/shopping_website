@@ -1,0 +1,110 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Account{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.about')}}" style="margin-left: 24px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+<div class="container">
+    <div class="flex-container" style="margin-top: 0;">
+        <div class="flex-box" style="width: 100%; justify-content: space-between">
+            <div>
+                <h1 class="display-4 subtitle" style="margin-top: 10px; text-transform: capitalize;">
+                    Hello, {{client.f_name}}
+                </h1>
+                <h3 class="subtitle">This is your account</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end">
+                <a href="{{url_for('user.logout')}}" class="button-title">
+                    <button type="button" class="click" style="margin: 0;">Log out</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<div class="container" >
+        <form id="update-details" action="{{url_for('user.account')}}" method="post" style="margin: 0;">
+        </form>
+        <h3 style="width: 45%; margin-bottom: 0px">Billing Address</h3>
+        <p style="color: grey;">
+            You can update your billing details right here if you need to.
+            <br>
+            Otherwise, just ignore this form.
+        </p>
+        <div style="display: table;">
+            <label style="margin-right: 145px;"><i class="fa fa-address-card-o"></i> Address</label>
+            <label ><i class="fa fa-institution"></i> City</label>
+            <br>
+            <input form="update-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                   name="update_address" placeholder="{{client.address}}">
+            <input form="update-details" type="text" class="inputs" required="required" name="update_city"
+                   placeholder="{{client.city}}">
+        </div>
+        <div style="display: table;">
+            <label style="margin-right: 170px;" ><i class="fa-solid fa-flag-usa"></i> State</label>
+            <label ><i class="fa-brands fa-usps"></i> Zip</label>
+            <br>
+            <input form="update-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                   name="update_state" placeholder="{{client.state}}">
+            <input form="update-details" type="text" name="update_zip" required="required" class="inputs"
+                   placeholder="{{client.zip}}">
+        </div>
+        <div style="display: table; margin-top: 20px;">
+            <button form="update-details" type="submit" class="checkout-super-smol">Update Details</button>
+        </div>
+</div>
+
+<div class="container" style="display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end">
+    <a href="{{url_for('user.home')}}">
+        <button type="button" class="click">Back Home</button>
+    </a>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" style="margin-top: 10px;">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.about')}}" style="margin-left: 24px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+
+<div class="container">
+    <h1 class="display-4 subtitle" style="margin-top: 10px;">Welcome</h1>
+</div>
+
+<hr class="my-4">
+
+<div class="container" >
+    <div class="flex-container" style="margin-top: 0;">
+
+        <div class="admin-dashboard-buttons" style="">
+            <a href="{{url_for('user.login')}}">
+                <button type="button" class="user admin-buttons">
+                    Log In
+                    <br>
+                    <i class="fa-solid fa-right-to-bracket fa-lg admin-icons"></i>
+                </button>
+            </a>
+            <p style="color: grey;">If you have an account</p>
+        </div>
+
+        <div class="admin-dashboard-buttons" >
+            <a href="{{url_for('user.sign_up')}}">
+                <button type="button" class="user admin-buttons">
+                    Sign Up
+                    <br>
+                    <i class="fa-solid fa-user-plus fa-lg admin-icons"></i>
+                </button>
+            </a>
+            <p style="color: grey;">To create an account</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <div style="width: 100%; text-align: right;">
+        <a href="{{url_for('user.home')}}">
+            <button type="button" class="click">Back</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

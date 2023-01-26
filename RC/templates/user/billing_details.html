@@ -1,0 +1,138 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Complete your Order{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.about')}}" style="margin-left: 24px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto">
+                <a class="nav-link active" aria-current="page" href="{{url_for('user.user')}}" style="margin-right: 8px;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+<div class="container">
+    <div class="flex-container" style="margin-top: 0;">
+        <div class="flex-box" style="width: 100%; justify-content: space-between; margin: 0;">
+             <div style="display: flex; flex-direction: column; justify-content: flex-end">
+                <h1 class="display-4 subtitle" style="margin-bottom: 0;">Billing Details</h1>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end">
+                <a href="{{url_for('user.cart')}}">
+                    <button type="button" class="click" style="margin-bottom: 0;">Modify Order</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4" style="margin-top: 8px;">
+
+<div class="container">
+    <div class="flex-container" style="margin-top: 0px; flex-direction: column;
+    justify-content: flex-start; flex-wrap: wrap; ">
+        {% if session['shopping_data']: %}
+        <form id="billing-details" action="{{url_for('user.create_checkout_session')}}"
+              method="post" style="margin: 0;">
+        </form>
+        <div style="display: table;">
+            <label style="margin-right: 135px;" ><i class="fa fa-user"></i> Full Name</label>
+            <label ><i class="fa fa-envelope"></i> Email</label>
+            <br>
+            {% if not address: %}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required"
+                       class="inputs" name="fullname" placeholder="John M. Doe">
+                <input form="billing-details" type="text" required="required" class="inputs" name="email"
+                       placeholder="john@example.com" >
+            {% endif %}
+            {% if address%}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required"
+                       class="inputs" name="fullname" value="{{client.f_name}} {{client.l_name}}">
+                <input form="billing-details" type="text" required="required" class="inputs" name="email"
+                       value="{{client.email}}">
+            {% endif %}
+        </div>
+        <div style="display: table;">
+            <label style="margin-right: 145px;"><i class="fa fa-address-card-o"></i> Address</label>
+            <label ><i class="fa fa-institution"></i> City</label>
+            <br>
+            {% if not address: %}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                   name="address" placeholder="542 W. 15th Street">
+                <input form="billing-details" type="text" class="inputs" required="required" name="city"
+                       placeholder="New York">
+            {% endif %}
+            {% if address: %}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                       name="address" placeholder="542 W. 15th Street" value="{{client.address}}">
+                <input form="billing-details" type="text" class="inputs" required="required" name="city"
+                       placeholder="New York" value="{{client.city}}">
+            {% endif %}
+        </div>
+        <div style="display: table;">
+            <label style="margin-right: 170px;" ><i class="fa-solid fa-flag-usa"></i> State</label>
+            <label ><i class="fa-brands fa-usps"></i> Zip</label>
+            <br>
+            {% if not address: %}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                       name="state" placeholder="NY">
+                <input form="billing-details" type="text" name="zip" required="required" class="inputs"
+                       placeholder="10001">
+            {% endif %}
+            {% if address: %}
+                <input form="billing-details" style="margin-right: 30px;" type="text" required="required" class="inputs"
+                       name="state" value="{{client.state}}">
+                <input form="billing-details" type="text" name="zip" required="required" class="inputs"
+                value="{{client.zip}}">
+            {% endif %}
+        </div>
+        <div style="display: table; margin-top: 20px;">
+            <button form="billing-details" type="submit" class="checkout-super-smol" style="width: 420px;">Pay now</button>
+            <p style="color: grey;">
+                You will be directed to a secure Stripe session to handle your payment.
+                Your invoice will be available right after that.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

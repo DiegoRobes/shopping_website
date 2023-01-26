@@ -1,0 +1,120 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Sing Up{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.about')}}" style="margin-left: 24px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto">
+                <a class="nav-link active" aria-current="page" href="{{url_for('user.user')}}" style="margin-right: 16px;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+
+<div class="container">
+    <h1 class="display-4 subtitle" style="margin-top: 10px;">Sign Up</h1>
+    <h3 class="subtitle">To create a new account</h3>
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+        {% if not register_complete: %}
+            <form id="register" action="{{ url_for('user.sign_up') }}" method="post">
+                <label style="margin-right: 135px;" ><i class="fa fa-user"></i> Full Name</label>
+                <br>
+                <input class="inputs" type="text" name="f_name" placeholder="John" required="required" />
+                <input class="inputs" type="text" name="l_name" placeholder="Doe" required="required" />
+                <br>
+                <label ><i class="fa fa-envelope"></i> Email</label>
+                <br>
+                <input class="inputs" type="email" name="email" placeholder="Email" required="required" />
+                <br>
+                <label ><i class="fa-solid fa-unlock"></i> Password</label>
+                <br>
+                <input class="inputs" type="password" name="password" placeholder="Password" required="required" />
+                <br>
+                <label ><i class="fa-solid fa-lock"></i> Confirm Password</label>
+                <br>
+                <input class="inputs" type="password" name="confirm-password" placeholder="Confirm Password"
+                       required="required" />
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages: %}
+                        {% for i in messages: %}
+                            <p class="warnings"> {{ i }} </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <button type="submit" class="click" style="margin-bottom: 0px;">Create Account</button>
+                <p style="color: grey;">
+                    By clicking you agree with <a href="">Terms and Conditions</a>
+                </p>
+            </form>
+        <div style="width: 100%; text-align: right;">
+            <a href="{{url_for('user.user')}}">
+                <button type="button" class="click">Back</button>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if register_complete: %}
+             {% with messages = get_flashed_messages() %}
+                 {% if messages: %}
+                     {% for i in messages: %}
+                        <h3 class="okay"> {{ i }} </h3>
+                        <div style="width: 100%; text-align: right;">
+                            <a href="{{url_for('user.user')}}">
+                                <button type="button" class="click">Done</button>
+                            </a>
+                        </div>
+                     {% endfor %}
+                 {% endif %}
+             {% endwith %}
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

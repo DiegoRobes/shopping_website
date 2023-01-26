@@ -1,0 +1,104 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.about')}}" style="margin-left: 24px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto">
+                <a class="nav-link active" aria-current="page" href="{{url_for('user.user')}}" style="margin-right: 16px;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+<div class="container">
+    <h1 class="display-4 subtitle" style="margin-top: 10px;">Please Login</h1>
+    <h3 class="subtitle">Into an existing account</h3>
+</div>
+<hr class="my-4">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        {% if user_not_found: %}
+            <form action="{{ url_for('user.login') }}" method="post">
+                <input class="inputs" type="email" name="email" placeholder="Email" required="required" />
+                <br>
+                <input class="inputs" type="password" name="password" placeholder="Password" required="required" />
+                <br>
+                <p class="warnings"> This email is not yet registered. Please check it,
+                    or <a  class="black-link" href="{{url_for('user.sign_up')}}">SING UP</a></p>
+                <button type="submit" class="click">Let me in</button>
+            </form>
+
+        {% else: %}
+            <form action="{{ url_for('user.login') }}" method="post">
+                <label ><i class="fa fa-envelope"></i> Email</label>
+                <br>
+                <input class="inputs" type="email" name="email" placeholder="Email" required="required" />
+                <br>
+                <label ><i class="fa-solid fa-lock"></i> Password</label>
+                <br>
+                <input class="inputs" type="password" name="password" placeholder="Password" required="required" />
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages: %}
+                        {% for i in messages: %}
+                            <p class="warnings"> {{ i }} </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <button type="submit" class="click">Let me in</button>
+            </form>
+        {% endif %}
+
+        <div style="width: 100%; text-align: right;">
+            <a href="{{url_for('user.user')}}">
+                    <button type="button" class="click">Back</button>
+            </a>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
