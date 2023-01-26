@@ -1,0 +1,81 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+
+<! -- navbar -->
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+  <div class="container-fluid">
+      <table>
+            <tr>
+                <td>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+      <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+     <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+        <ul class="navbar-nav ms-auto" style="align-items: center; display: flex;">
+            <li class="nav-item ms-auto">
+                <a class="nav-link active" aria-current="page" href="{{url_for('user.user')}}" style="margin-right: 16px;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item ms-auto" >
+                <a class="navbar-brand" style="" href="{{url_for('user.cart')}}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </li>
+        </ul>
+     </div>
+  </div>
+</nav>
+
+<! -- header -->
+<div class="container">
+    <h1 class="display-4 subtitle">About us</h1>
+</div>
+
+<hr class="my-4">
+
+<! -- content -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sollicitudin elit eu
+            dignissim vulputate. In sit amet elementum odio. Quisque molestie elementum posuere.
+            Nunc tempus, quam a aliquet sollicitudin, nisi purus egestas arcu, eget sodales lacus
+            neque ut risus. Nulla finibus venenatis imperdiet. Vestibulum ante ipsum primis in
+            faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse tincidunt mi mi, ac
+            aliquet justo sagittis in. Phasellus ac sollicitudin lacus.
+            Sed dignissim metus velit, ac rhoncus velit imperdiet ac. Nam hendrerit blandit sagittis.
+            Donec eu commodo tortor.
+        </p>
+
+        <a href="{{url_for('user.home')}}">
+                <button type="button" class="click">Back Home</button>
+        </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
