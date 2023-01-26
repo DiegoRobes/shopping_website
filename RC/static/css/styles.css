@@ -1,0 +1,390 @@
+.jumbotron{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: white;
+  background-color: #333;
+  padding: 0;
+}
+
+.navbar{
+    margin-top: 10px;
+}
+
+.smol-monogram{
+    height: 32px;
+    position:absolute;
+    left:48%;
+}
+
+.display-image{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.div-for-display-image{
+    margin-top: 40px;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    border: 0px;
+    margin-top: 40px;
+}
+
+.subtitle{
+    text-align: left;
+    font-weight: lighter;
+}
+
+.container{
+    padding: 0px 25px 0px 25px;
+}
+
+.card-container{
+    padding: 40px 25px;
+}
+
+.options{
+    width: 10%;
+}
+
+.exp-div{
+    text-align: center;
+}
+
+.user{
+    font-size: 150%;
+    color: #333;
+    width: 50%;
+    height: 100px;
+    margin: 20px 0px 40px 0px;
+    border: none;
+}
+
+.hidden_button{
+    border: none;
+    background: none;
+    padding: 0;
+}
+button.user{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+}
+
+button.user:hover{
+      background-color: white;
+      box-shadow: 5px 5px 10px 2px rgba(0,0,0,.3);
+      transition: 0.9s;
+}
+
+.click{
+    margin: 20px 0px 40px 0px;
+    border: solid #333;
+    border-width: thin;
+}
+
+.edit-cart{
+    margin: 20px 0px 20px 0px;
+    border: solid #333;
+    border-width: thin;
+}
+
+button.edit-cart{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+}
+
+button.edit-cart:hover{
+      background-color:#333;
+      color: white;
+      transition: 0.7s;
+}
+
+button.click{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+}
+
+button.click:hover{
+      background-color:#333;
+      color: white;
+      transition: 0.7s;
+}
+
+.save_changes{
+    margin: 20px 0px 20px 0px;
+    width: 95%;
+    border: solid #333;
+    border-width: thin;
+}
+
+button.save_changes{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+    padding-bottom: 2px;
+}
+
+button.save_changes:hover,
+button.edit-cart:hover{
+      background-color: #17A035;
+      color: white;
+      border-color: white;
+      transition: 0.7s;
+}
+
+.danger{
+    margin: 0px 0px 10px 0px;
+    border: solid #333;
+    border-width: thin;
+}
+button.danger{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+}
+
+button.danger:hover{
+      background-color:#CB0606;
+      color: white;
+      border-color: white;
+      transition: 0.7s;
+}
+
+.checkout-super-smol{
+    margin: 0;
+    padding-bottom: 5px;
+    border: solid #333;
+    border-width: thin;
+    height: 30px;
+    width: 150px;
+}
+
+.checkout-smol{
+    margin: 0;
+    border: solid #333;
+    border-width: thin;
+    height: 90%;
+    width: 90%;
+}
+
+.checkout-big{
+    margin: 0;
+    border: solid #333;
+    border-width: thin;
+    height: 100%;
+    width: 100%;
+}
+
+button.checkout-big,
+button.checkout-smol,
+button.checkout-super-smol{
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    border-color: #333;
+    padding: 0 5px;
+}
+
+button.checkout-big:hover,
+button.checkout-smol:hover,
+button.checkout-super-smol:hover{
+      background-color:#0F7587;
+      color: white;
+      border-color: white;
+      transition: 0.7s;
+}
+
+.item-quantity{
+    width: 50px;
+    border-radius: 5px;
+    border: #333 solid;
+    border-width: thin;
+    padding: 0 0 0 10px;
+}
+
+
+.flex-container{
+    display: flex;
+    margin-top: 40px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flex-row last-row{
+    display: flex;
+
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flex-box{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.flex-cart{
+    margin-bottom: 100px;
+}
+
+.flex-index{
+    margin-bottom: 50px;
+}
+
+.product-table{
+    width: 100%;
+    border-collapse:separate;
+    border-spacing: 0 .5em;
+}
+
+.cart-table{
+    width: 350px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.bottom-row{
+    border-bottom: 1px solid rgba(51, 51, 51, .5);
+}
+
+.product-img-on-table{
+    height: 400px;
+    text-align:left;
+    border-radius: 8px;
+}
+
+.inner-table{
+    width: 100%;
+    text-align: center;
+    border-collapse:separate;
+    border-spacing: 0 .5em;
+}
+
+.table-cart{
+
+}
+.table-cell{
+    display: flex;
+    flex-direction: column;
+}
+
+.info-table-cell{
+
+}
+
+.inputs{
+    margin: 10px 0 10px 0;
+    border-radius: 8px;
+    border: solid #333;
+    border-width: thin;
+    padding: 5px 5px;
+}
+
+.warnings{
+    color: #D61E09;
+    font-weight: bold;
+}
+
+.okay{
+    color: #2DC560;
+    font-weight: bold;
+}
+.add-to-cart{
+    margin: 20px 0px;
+}
+
+.item-price{
+    margin: 0;
+}
+.black-link{
+    color: #333;
+    font-weight: bold;
+}
+
+.update{
+    margin-top: 80px;
+}
+
+.file-input{
+    color: grey;
+    cursor: pointer;
+    margin: 10px 0 10px 0;
+    border-radius: 8px;
+    border: solid grey;
+    border-width: thin;
+    padding: 5px 5px;
+}
+
+.file-input:hover{
+    color: #333;
+    border: solid white;
+    border-width: thin;
+    background-color: white;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.3);
+    transition: 0.9s;
+}
+
+.title-button{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.update_img{
+    height: 500px;
+    border-radius: 8px;
+}
+
+.thumbnail{
+     height: 100px;
+     border-radius: 5px;
+}
+
+.admin-dashboard-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.admin-buttons{
+    width: 230px;
+    height: 100px;
+    font-weight: 600;
+    margin: 0px 0px 10px 0px;
+}
+
+.admin-icons{
+    margin: 30px 0px 20px 0px;
+}
