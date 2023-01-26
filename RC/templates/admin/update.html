@@ -1,0 +1,144 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Update Products{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" style="margin-top: 10px;">
+  <div class="container-fluid">
+      <table>
+          <tr>
+              <td>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                      <i class="fa-solid fa-house"></i>
+                  </a>
+              </td>
+      </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+  </div>
+</nav>
+
+<div class="container">
+    <h1 class="display-4 subtitle" style="margin-top: 10px;">Update</h1>
+    {% if not product_found: %}
+    <h3 class="subtitle">Update products in the DB</h3>
+    {% else: %}
+    <h3 class="subtitle">Product: {{ product.sku }}</h3>
+    {% endif %}
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+    <div class="flex-container"  style="margin-top: 0;">
+        <div class="flex-box" style="width: 100%; margin-top: 0;">
+            {% if updated: %}
+                {% if complete: %}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages: %}
+                            {% for i in messages: %}
+                            <h3 class="okay"> {{ i }} </h3>
+                            <div style="width: 100%; text-align: right;">
+                                <a href="{{url_for('second.all_products')}}">
+                                    <button type="button" class="click">Check all Products</button>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+            {% endif %}
+
+            {% if not product_found: %}
+                {% if not complete: %}
+                <div>
+                    <h5 class="">
+                        Enter the SKU of the product you want to update.
+                    </h5>
+                    <form action="{{ url_for('second.update') }}" method="post">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages: %}
+                                {% for i in messages: %}
+                                    <p class="warnings" style="margin: 0;"> {{ i }} </p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <input  class="inputs" type="text" name="sku" placeholder="SKU code">
+                        <br>
+                        <button type="submit" class="click">Find</button>
+                    </form>
+                </div>
+                {% endif %}
+            {% endif %}
+
+            {% if product_found: %}
+                {% if not complete: %}
+                <table width="100%">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <form action="{{ url_for('second.update_complete') }}" method="post" id="update"
+                                  enctype="multipart/form-data">
+                            <label><b>Brand</b></label>
+                            <br>
+                            <input class="inputs" type="text" name="brand" value="{{product.brand}}"
+                                   required="required"/>
+                            <br>
+                            <label><b>Item</b></label>
+                            <br>
+                            <input class="inputs" type="text" name="item_name" value="{{product.item_name}}"
+                                   required="required"/>
+                            <br>
+                            <label><b>Price</b></label>
+                            <br>
+                            <input class="inputs" type="text" name="price" value="${{product.price}}"
+                                   required="required"/>
+                            <br>
+                            <label><b>SKU</b></label>
+                            <br>
+                            <input class="inputs" type="text" name="sku" value="{{product.sku}}"
+                                   required="required" readonly/>
+                            <br>
+                            <label><b>Description</b></label>
+                            <br>
+                            <textarea class="inputs" name="description" rows="4" cols="50"
+                                      required="required">{{product.description}}</textarea>
+                            <br>
+                        </form>
+                        </td>
+                        <td style="text-align: right;">
+                            <img class="update_img" src="/static/products/{{product.item_img_name}}">
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: bottom;">
+                            <button form="update" type="submit" class="checkout-super-smol">Update</button>
+                        </td>
+                        <td style="text-align: right; vertical-align: top;">
+                            <label><b>Image</b></label>
+                            <br>
+                            <input form="update" type="file" id="img" aria-describedby="nameHelp" name="img"
+                                   accept="image/png, image/jpeg" hidden/>
+                            <label for="img" class="file-input">Change</label>
+                        </td>
+                    </tr>
+                </table>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div style="width: 100%; text-align: right;">
+        <a href="{{url_for('second.admin')}}">
+            <button type="button" class="click">Back to Admin</button>
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

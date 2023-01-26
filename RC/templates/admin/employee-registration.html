@@ -1,0 +1,104 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Sing Up{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" >
+  <div class="container-fluid">
+      <table>
+          <tr>
+              <td>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                      <i class="fa-solid fa-house"></i>
+                  </a>
+              </td>
+      </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+  </div>
+</nav>
+
+<div class="container">
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <h1 class="display-4 subtitle" style="margin-top: 10px;">Sign Up</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3 class="subtitle">With your employee information</h3>
+            </td>
+            <td>
+                <div style="width: 100%; text-align: right;">
+                    <a href="{{url_for('user.home')}}">
+                        <button type="button" class="click" style="margin: 0;">Back Home</button>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+    <div class="flex-container" style="margin: 0;">
+        <div class="flex-box" style="width: 100%;">
+        {% if not register_complete: %}
+            <form action="{{ url_for('second.emp_register') }}" method="post">
+                <label style="margin-right: 135px;" ><i class="fa fa-user"></i> Full Name</label>
+                <br>
+                <input class="inputs" type="text" name="f_name" placeholder="John" required="required" />
+                <input class="inputs" type="text" name="l_name" placeholder="Doe" required="required" />
+                <br>
+                <label style="margin-right: 135px;" ><i class="fa-solid fa-id-card"></i> Employee ID</label>
+                <br>
+                <input class="inputs" type="text" name="emp-id" placeholder="xxx" required="required" />
+                <br>
+                <label ><i class="fa fa-envelope"></i> Company Email</label>
+                <br>
+                <input class="inputs" type="email" name="email" placeholder="something@rc.com" required="required" />
+                <br>
+                <label ><i class="fa-solid fa-unlock"></i> Password</label>
+                <br>
+                <input class="inputs" type="password" name="password" placeholder="Create Password" required="required" />
+                <br>
+                <label ><i class="fa-solid fa-lock"></i> Confirm Password</label>
+                <br>
+                <input class="inputs" type="password" name="confirm-password" placeholder="Confirm Password"
+                       required="required" />
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages: %}
+                        {% for i in messages: %}
+                            <p class="warnings"> {{ i }} </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <button type="submit" class="click">Sign me up</button>
+        </form>
+        {% endif %}
+
+        {% if register_complete: %}
+             {% with messages = get_flashed_messages() %}
+                 {% if messages: %}
+                     {% for i in messages: %}
+                        <h3 class="okay"> {{ i }} </h3>
+                        <div style="width: 100%; text-align: right;">
+                            <a href="{{url_for('second.admin')}}">
+                                <button type="button" class="click">Done</button>
+                            </a>
+                        </div>
+                     {% endfor %}
+                 {% endif %}
+             {% endwith %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

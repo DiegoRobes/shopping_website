@@ -1,0 +1,102 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}All Products{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" style="margin-top: 10px;">
+  <div class="container-fluid">
+      <table>
+          <tr>
+              <td>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                      <i class="fa-solid fa-house"></i>
+                  </a>
+              </td>
+      </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+  </div>
+</nav>
+
+<div class="container">
+    <div class="flex-container" style="margin-top: 0;">
+        <div class="flex-box" style="width: 100%; justify-content: space-between">
+            <div>
+                <h1 class="display-4 subtitle" style="margin-top: 10px;">All Products</h1>
+                <h3 class="subtitle">Click the thumbnail to edit</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end">
+                <a href="{{url_for('second.create')}}">
+                    <button type="button" class="checkout-super-smol" style="margin: 0;">New Product</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+    <div class="flex-container">
+        <div class="flex-box" style="width: 100%;">
+            <table style="width: 100%;">
+                <tr >
+                    <th>
+                        Brand
+                    </th>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        SKU Code
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th style="text-align: center;" >
+                        Thumbnail
+                    </th>
+                </tr>
+                {% for i in products: %}
+                    <tr >
+                        <td>
+                            {{ i.brand}}
+                        </td>
+                        <td>
+                            {{ i.item_name }}
+                        </td>
+                        <td>
+                            {{ i.sku }}
+                        </td>
+                        <td>
+                            {{ i.description }}
+                        </td>
+                        <td>
+                            ${{ i.price }}
+                        </td>
+                        <td style="text-align: center;" >
+                            <img class="thumbnail" src="/static/products/{{ i.item_img_name}}">
+                        </td>
+                    </tr>
+                 {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div style="width: 100%; text-align: right;">
+        <a href="{{url_for('second.admin')}}">
+            <button type="button" class="click">Back to Admin</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

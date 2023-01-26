@@ -1,0 +1,115 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" style="margin-top: 10px;">
+  <div class="container-fluid">
+      <table>
+          <tr>
+              <td>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                      <i class="fa-solid fa-house"></i>
+                  </a>
+              </td>
+      </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+  </div>
+</nav>
+
+<div class="container">
+    <div class="flex-container" style="margin-top: 0;">
+        <div class="flex-box" style="width: 100%; justify-content: space-between">
+            <div>
+                <div style="display: flex; justify-content: flex-start">
+                    <h1 class="display-4 subtitle" style="margin: 10px 20px 0px 0px;">Create</h1>
+                    <!-- <i class="fa-solid fa-pen-to-square fa-2xl" style="margin-top: 50px;" ></i> -->
+                </div>
+                <h3 class="subtitle">Upload products to the database</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end">
+                <a href="{{url_for('second.all_products')}}">
+                    <button type="button" class="click" style="margin-bottom: 0;">Check all Products</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="my-4" style="margin-top: 8px;">
+
+<div class="container">
+    {% if not created: %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+                {% for i in messages: %}
+                    <h3 class="okay"> {{ i }} </h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <form action="{{url_for('second.create')}}" enctype="multipart/form-data" method="post" >
+        <label><b>Brand</b></label>
+        <br>
+        <input class="inputs" type="text" name="brand" placeholder="Who made it" required="required" />
+        <br>
+        <label><b>Item</b></label>
+        <br>
+        <input class="inputs" type="text" name="item_name" placeholder="What's the name" required="required" />
+        <br>
+        <label><b>Price</b></label>
+        <br>
+        <input class="inputs" type="text" name="price" placeholder="In USD, without '$'" required="required" />
+        <br>
+        <label><b>SKU</b></label>
+        <br>
+        <input class="inputs" type="text" name="sku" placeholder="SKU Number" required="required" />
+        <br>
+        <label><b>Price Id</b></label>
+        <br>
+        <input class="inputs" type="text" name="price_id" placeholder="Stripe Price Id" required="required" />
+        <br>
+        <label><b>Description</b></label>
+        <br>
+        <textarea class="inputs" name="description" rows="4" cols="50" placeholder="1000 chars"
+                  required="required"></textarea>
+        <br>
+        <label><b>Image</b></label>
+        <br>
+        <input type="file" id="img" aria-describedby="nameHelp" name="img" required="required"
+               accept="image/png, image/jpeg" hidden/>
+        <label for="img" class="file-input">Select</label>
+        <br>
+        <button type="submit" class="checkout-super-smol">Create Product</button>
+    </form>
+    {% endif %}
+
+    {% if created: %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+                {% for i in messages: %}
+                    <h3 class="okay"> {{ i }} </h3>
+                {% endfor %}
+                <div style="width: 100%; text-align: right;">
+                    <a href="{{url_for('second.all_products')}}">
+                        <button type="button" class="click">Check all Products</button>
+                    </a>
+                </div>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+</div>
+
+<div class="container">
+    <div style="width: 100%; text-align: right;">
+        <a href="{{url_for('second.admin')}}">
+            <button type="button" class="click">Back to Admin page</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+      <meta charset="utf-8">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>{% block title %} {% endblock %}</title>
+
+      <link href="/static/img/monogram-smol.png" rel="icon">
+      <link rel="stylesheet" href="/static/css/styles.css">
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+      <link href="/static/css/styles.css" rel="stylesheet">
+
+      <script src="https://js.stripe.com/v3/"></script>
+
+      <script src="/static/js/main.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+  {% block body %}
+
+  {% endblock %}
+  </body>
+
+   <footer class="mt-auto">
+      <p align="center"> <b>RojoCuerpo <br> Industries </b> <br> Copyright © {{year}} </p>
+   </footer>
+
+</html>
