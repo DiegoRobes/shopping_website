@@ -1,0 +1,146 @@
+<head>
+    <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+</head>
+{% extends 'admin/base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-white sticky-top" style="margin-top: 10px;">
+  <div class="container-fluid">
+      <table>
+          <tr>
+              <td>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('user.home')}}" style="margin-left: 8px;">
+                      <i class="fa-solid fa-house"></i>
+                  </a>
+              </td>
+      </table>
+
+      <img src="/static/img/monogram-smol.png" style="height: 32px; position:absolute; left:48%;">
+
+  </div>
+</nav>
+
+<div class="container">
+    <div>
+        <div style="display: flex; justify-content: flex-start">
+            <h1 class="display-4 subtitle" style="margin: 10px 20px 0px 0px;">Report</h1>
+            <!-- <i class="fa-solid fa-pen-to-square fa-2xl" style="margin-top: 50px;" ></i> -->
+        </div>
+        {% if not found: %}
+            <h3 class="subtitle">Get insight on any day of activity</h3>
+        {% endif %}
+
+        {% if found: %}
+        <h3 class="subtitle" style="margin-top: 10px;">For <b>{{ date }}</b></h3>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="my-4" style="margin-top: 8px;">
+
+<div class="container">
+    {% if not found: %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+                {% for i in messages: %}
+                    <h4 class="warnings"> {{ i }} </h4>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <form action="{{url_for('second.report')}}" enctype="multipart/form-data" method="post" >
+        <label><b>Date</b></label>
+        <br>
+        <input class="inputs" type="date" name="date"  required="required" />
+        <br>
+        <button type="submit" class="checkout-super-smol">Get report</button>
+    </form>
+    {% endif %}
+
+    {% if found: %}
+        <h3 style="margin-bottom: 20px;">Summary: </h3>
+        <div style="margin-bottom: 60px; display:flex; flex-direction: column;">
+             <table style="border-collapse:separate; border-spacing: 0 .5em;">
+                <tr style="">
+                    <th style="width: 25%;">
+                        Total Orders
+                    </th>
+                    <th style="width: 25%; text-align: center">
+                        Articles sold
+                    </th>
+                    <th style="width: 25%; text-align: center">
+                        By SKU
+                    </th>
+                    <th style="width: 25%; text-align: right">
+                        Daily Earnings
+                    </th>
+                </tr>
+                <tr style="">
+                    <td valign="top" style="width: 25%;">
+                        {{ orders }}
+                    </td>
+                    <td valign="top" style="width: 25%; text-align: center">
+                        {{ articles }}
+                    </td>
+                    <td style="width: 25%; text-align: center">
+                        <table style="border-collapse:separate; border-spacing: 0 .5em; width: 100%; text-align: center">
+                            {% for i in by_sku: %}
+                            <tr >
+                                <td>
+                                    {{i}}: {{ by_sku[i] }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                    <td valign="top" style="width: 25%; text-align: right">
+                        ${{ earnings }} USD
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 style="margin-bottom: 20px;">Breakdown: </h3>
+        <div style="margin-bottom: 20px; display:flex; flex-direction: column;">
+            <table style="border-collapse:separate; border-spacing: 0 .5em;">
+                <tr>
+                    <th style="width: 45%;">
+                        Order ID
+                    </th>
+                    <th style="width: 35%; ">
+                        Products
+                    </th>
+                    <th style="text-align: right">
+                        Total
+                    </th>
+                </tr>
+                {% for i in report: %}
+                <tr style="border-bottom: 1px solid rgba(51, 51, 51, .5);">
+                    <td style="width: 45%;">
+                        {{ i.order_id }}
+                    </td>
+                    <td style="width: 35%;">
+                        {{ i.products_sku }}
+                    </td>
+                     <td style="text-align: right">
+                        ${{ i.total }} USD
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    {% endif %}
+</div>
+
+<div class="container">
+    <div style="width: 100%; text-align: right;">
+        <a href="{{url_for('second.admin')}}">
+            <button type="button" class="click">Back to Admin page</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
