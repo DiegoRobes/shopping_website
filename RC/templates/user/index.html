@@ -1,5 +1,10 @@
 <head>
     <script src="https://kit.fontawesome.com/8693eed2b7.js" crossorigin="anonymous"></script>
+    <script language="text/javascript">
+                document.addEventListener("DOMContentLoaded", function(event) {
+                window.scrollTo(0,document.body.scrollHeight);
+                });
+    </script>
 </head>
 {% extends 'admin/base.html' %}
 
@@ -48,7 +53,7 @@
 <! -- presentation card and paragraph -->
 <div class="container">
     <div class="card" >
-        <img src="static/products/cover.jpg" style="width: 60%;">
+        <img src="static/img/cover.jpg" style="width: 60%;">
     </div>
 
     <div style="margin-top: 40px;">
@@ -141,8 +146,7 @@
 <! -- cart on the bottom of the page, only if cart has items -->
 {% if cart: %}
     {% if session['shopping_data']: %}
-        <div class="container">
-
+        <div class="container" onload="">
             <div class="flex-container cart-item" style="margin-top: 40px;">
 
                 <div class="flex-box cart-row" style="width: 100%;">
